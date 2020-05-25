@@ -5,11 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("okhttp3.fast")
 public class OkHttp3FastProperties {
 
-    private int connectTimeout;
-    private int readTimeout;
-    private int writeTimeout;
-    private boolean retryOnConnectionFailure;
-    private boolean https;
+    private int connectTimeout = 3;
+    private int readTimeout = 3;
+    private int writeTimeout = 3;
+    private boolean retryOnConnectionFailure = false;
+    private boolean https = false;
 
 
     public int getConnectTimeout() {
@@ -50,5 +50,16 @@ public class OkHttp3FastProperties {
 
     public void setHttps(boolean https) {
         this.https = https;
+    }
+
+    @Override
+    public String toString() {
+        return "OkHttp3FastProperties{" +
+                "connectTimeout=" + connectTimeout +
+                ", readTimeout=" + readTimeout +
+                ", writeTimeout=" + writeTimeout +
+                ", retryOnConnectionFailure=" + retryOnConnectionFailure +
+                ", https=" + https +
+                '}';
     }
 }

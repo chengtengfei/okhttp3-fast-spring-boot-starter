@@ -2,10 +2,8 @@ package space.code.fei.configure;
 
 
 import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,12 +22,14 @@ import java.util.concurrent.TimeUnit;
 @EnableConfigurationProperties(OkHttp3FastProperties.class)
 public class OkHttp3FastAutoConfigure {
 
-    @Autowired
     private OkHttp3FastProperties properties;
+
+    public OkHttp3FastAutoConfigure(OkHttp3FastProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "okhttp3.fast.", value = "https", havingValue = "false")
     public OkHttpClient okHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         if (properties.isHttps()) {

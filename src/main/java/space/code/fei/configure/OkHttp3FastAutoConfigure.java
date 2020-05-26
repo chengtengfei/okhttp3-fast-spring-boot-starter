@@ -1,13 +1,18 @@
 package space.code.fei.configure;
 
 
+import com.codahale.metrics.MetricRegistry;
 import okhttp3.OkHttpClient;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import space.code.fei.bean.OkHttp3Fast;
+import space.code.fei.endpoint.OkHttp3FastEndpoint;
+import space.code.fei.interceptor.LoggingInterceptor;
+import space.code.fei.interceptor.MetricsInterceptor;
 import space.code.fei.properties.OkHttp3FastProperties;
 
 import javax.net.ssl.*;
@@ -45,13 +50,17 @@ public class OkHttp3FastAutoConfigure {
                     .readTimeout(properties.getReadTimeout(), TimeUnit.SECONDS)
                     .writeTimeout(properties.getWriteTimeout(),TimeUnit.SECONDS)
                     .retryOnConnectionFailure(properties.isRetryOnConnectionFailure())
+                    .addInterceptor(new MetricsInterceptor(registry()))
+                    .addInterceptor(new LoggingInterceptor())
                     .sslSocketFactory(ssl.getSSLContext().getSocketFactory(), ssl.getTrustManager())
                     .hostnameVerifier(DO_NOT_VERIFY);
         } else {
             builder.connectTimeout(properties.getConnectTimeout(), TimeUnit.SECONDS)
                     .readTimeout(properties.getReadTimeout(), TimeUnit.SECONDS)
                     .writeTimeout(properties.getWriteTimeout(),TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(properties.isRetryOnConnectionFailure());
+                    .retryOnConnectionFailure(properties.isRetryOnConnectionFailure())
+                    .addInterceptor(new MetricsInterceptor(registry()))
+                    .addInterceptor(new LoggingInterceptor());
         }
         return builder.build();
     }
@@ -61,6 +70,19 @@ public class OkHttp3FastAutoConfigure {
     @ConditionalOnMissingBean
     public OkHttp3Fast okHttp3Fast() {
         return new OkHttp3Fast(okHttpClient());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    MetricRegistry registry() {
+        return new MetricRegistry();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnEnabledEndpoint
+    public OkHttp3FastEndpoint okHttp3FastEndpoint() {
+        return new OkHttp3FastEndpoint(registry());
     }
 
 

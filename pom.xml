@@ -9,7 +9,7 @@
 
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>The test uploads the jar to the maven central repository</description>
+    <description>A starter wrap okhttp lib and has advance function</description>
     <url>https://github.com/chengtengfei/okhttp3-fast-spring-boot-starter</url>
 
     <!-- 许可证信息 -->

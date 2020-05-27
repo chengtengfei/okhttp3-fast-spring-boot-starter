@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=space.code.fei.configure.OkHttp3FastAutoConfigure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.chengtengfei.configure.OkHttp3FastAutoConfigure

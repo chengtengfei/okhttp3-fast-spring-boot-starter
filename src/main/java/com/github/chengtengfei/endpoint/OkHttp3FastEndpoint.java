@@ -1,11 +1,11 @@
-package space.code.fei.endpoint;
+package com.github.chengtengfei.endpoint;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Snapshot;
 import com.codahale.metrics.Timer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import space.code.fei.constant.MetricNameConstant;
+import com.github.chengtengfei.constant.MetricNameConstant;
 
 import java.util.HashMap;
 import java.util.Map;

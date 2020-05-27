@@ -1,11 +1,11 @@
-package space.code.fei.interceptor;
+package com.github.chengtengfei.interceptor;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import space.code.fei.constant.MetricNameConstant;
+import com.github.chengtengfei.constant.MetricNameConstant;
 
 import java.io.IOException;
 

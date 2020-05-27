@@ -1,4 +1,4 @@
-package space.code.fei.constant;
+package com.github.chengtengfei.constant;
 
 public class MetricNameConstant {
 

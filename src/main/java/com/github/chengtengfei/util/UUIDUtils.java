@@ -1,6 +1,5 @@
-package space.code.fei.util;
+package com.github.chengtengfei.util;
 
-import java.io.File;
 import java.util.UUID;
 
 /**

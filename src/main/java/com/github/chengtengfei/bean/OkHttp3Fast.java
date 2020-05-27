@@ -1,7 +1,7 @@
-package space.code.fei.bean;
+package com.github.chengtengfei.bean;
 
 import okhttp3.*;
-import space.code.fei.constant.RawMediaType;
+import com.github.chengtengfei.constant.RawMediaType;
 
 import java.io.IOException;
 import java.net.URLEncoder;

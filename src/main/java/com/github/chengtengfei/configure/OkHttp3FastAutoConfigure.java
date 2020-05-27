@@ -1,4 +1,4 @@
-package space.code.fei.configure;
+package com.github.chengtengfei.configure;
 
 
 import com.codahale.metrics.MetricRegistry;
@@ -9,11 +9,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import space.code.fei.bean.OkHttp3Fast;
-import space.code.fei.endpoint.OkHttp3FastEndpoint;
-import space.code.fei.interceptor.LoggingInterceptor;
-import space.code.fei.interceptor.MetricsInterceptor;
-import space.code.fei.properties.OkHttp3FastProperties;
+import com.github.chengtengfei.bean.OkHttp3Fast;
+import com.github.chengtengfei.endpoint.OkHttp3FastEndpoint;
+import com.github.chengtengfei.interceptor.LoggingInterceptor;
+import com.github.chengtengfei.interceptor.MetricsInterceptor;
+import com.github.chengtengfei.properties.OkHttp3FastProperties;
 
 import javax.net.ssl.*;
 import java.security.KeyManagementException;

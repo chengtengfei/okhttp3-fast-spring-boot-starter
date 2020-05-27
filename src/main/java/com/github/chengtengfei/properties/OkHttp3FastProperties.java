@@ -1,4 +1,4 @@
-package space.code.fei.properties;
+package com.github.chengtengfei.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package space.code.fei.configure;
+package com.github.chengtengfei.configure;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;

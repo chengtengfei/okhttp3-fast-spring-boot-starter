@@ -1,10 +1,10 @@
 package com.github.chengtengfei.bean;
 
+import com.github.chengtengfei.util.URIUtils;
 import okhttp3.*;
 import com.github.chengtengfei.constant.RawMediaType;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -42,14 +42,12 @@ public class OkHttp3Fast {
                 if (entry.getKey() != null && entry.getValue() != null) {
                     urlBuilder.append(entry.getKey())
                             .append("=")
-                            .append(entry.getValue())
+                            .append(URIUtils.urlEncode((String) entry.getValue()))
                             .append("&");
                 }
             }
-            url = url + urlBuilder.toString().substring(0, urlBuilder.length() -1);
+            url = url + urlBuilder.toString().substring(0, urlBuilder.length() - 1);
         }
-
-        url = URLEncoder.encode(url, StandardCharsets.UTF_8.name());
 
         Request request = null;
         if (headers != null) {
@@ -147,13 +145,12 @@ public class OkHttp3Fast {
                 if (entry.getKey() != null && entry.getValue() != null) {
                     dataBuilder.append(entry.getKey())
                             .append("=")
-                            .append(entry.getValue())
+                            .append(URIUtils.urlEncode((String) entry.getValue()))
                             .append("&");
                 }
             }
             content = dataBuilder.toString();
             content = content.substring(0, content.length() - 1);
-            content = URLEncoder.encode(content, StandardCharsets.UTF_8.name());
         }
 
         Request request = null;
@@ -278,13 +275,12 @@ public class OkHttp3Fast {
                 if (entry.getKey() != null && entry.getValue() != null) {
                     dataBuilder.append(entry.getKey())
                             .append("=")
-                            .append(entry.getValue())
+                            .append(URIUtils.urlEncode((String) entry.getValue()))
                             .append("&");
                 }
             }
             content = dataBuilder.toString();
             content = content.substring(0, content.length() - 1);
-            content = URLEncoder.encode(content, StandardCharsets.UTF_8.name());
         }
 
         Request request = null;
@@ -409,13 +405,12 @@ public class OkHttp3Fast {
                 if (entry.getKey() != null && entry.getValue() != null) {
                     dataBuilder.append(entry.getKey())
                             .append("=")
-                            .append(entry.getValue())
+                            .append(URIUtils.urlEncode((String) entry.getValue()))
                             .append("&");
                 }
             }
             content = dataBuilder.toString();
             content = content.substring(0, content.length() - 1);
-            content = URLEncoder.encode(content, StandardCharsets.UTF_8.name());
         }
 
         Request request = null;

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.chengtengfei</groupId>
     <artifactId>okhttp3-fast-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1_${maven.build.timestamp}-SNAPSHOT</version>
 
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -46,6 +46,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_SS</maven.build.timestamp.format>
         <java.version>11</java.version>
     </properties>
 

@@ -46,6 +46,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <!--UTC时区,会落后-->
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_SS</maven.build.timestamp.format>
         <java.version>11</java.version>
     </properties>
@@ -166,5 +167,30 @@
             </distributionManagement>
         </profile>
     </profiles>
+
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>build-helper-maven-plugin</artifactId>-->
+                <!--<version>1.7</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>timestamp-property</id>-->
+                        <!--<goals>-->
+                            <!--<goal>timestamp-property</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<name>build.time</name>-->
+                            <!--<pattern>yyyy_MM_dd_HH_mm_SS</pattern>-->
+                            <!--<locale>zh_CN</locale>-->
+                            <!--<timeZone>Asia/Shanghai</timeZone>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
+
 
 </project>

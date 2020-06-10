@@ -5,7 +5,6 @@ import okhttp3.*;
 import com.github.chengtengfei.constant.RawMediaType;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class OkHttp3Fast {

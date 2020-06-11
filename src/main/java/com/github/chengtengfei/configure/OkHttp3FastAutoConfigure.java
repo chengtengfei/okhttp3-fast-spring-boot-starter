@@ -52,6 +52,7 @@ public class OkHttp3FastAutoConfigure {
                     .retryOnConnectionFailure(properties.isRetryOnConnectionFailure())
                     .addInterceptor(new MetricsInterceptor(registry()))
                     .addInterceptor(new LoggingInterceptor())
+                    .authenticator(new AuthAuthenticator())
                     .sslSocketFactory(ssl.getSSLContext().getSocketFactory(), ssl.getTrustManager())
                     .hostnameVerifier(DO_NOT_VERIFY);
         } else {
@@ -60,7 +61,8 @@ public class OkHttp3FastAutoConfigure {
                     .writeTimeout(properties.getWriteTimeout(),TimeUnit.SECONDS)
                     .retryOnConnectionFailure(properties.isRetryOnConnectionFailure())
                     .addInterceptor(new MetricsInterceptor(registry()))
-                    .addInterceptor(new LoggingInterceptor());
+                    .addInterceptor(new LoggingInterceptor())
+                    .authenticator(new AuthAuthenticator());
         }
         return builder.build();
     }

@@ -76,27 +76,61 @@ public class WWWAuthParse {
     public static String assembleDigestAuthorization(Map<String, String> digestMap) {
         String nc = "0000001";
         String cnonce = UUIDUtils.getUUID().toLowerCase().substring(0, 8);
-        // qop为auth时生成response过程
-        // String a1 = MD5("user:realm:password").toLowerCase();
-        // String a2 = MD5("method:uri").toLowerCase();
-        // String response = MD5(a1:nonce:nc:cnonce:qop:a2).toLowerCase();
-        String h1 = MD5Utils.MD5(digestMap.get("username") + ":" + digestMap.get("realm") + ":" + digestMap.get("password")).toLowerCase();
-        String a2 = "";
+
+        String a1 = digestMap.get("username") + ":" + digestMap.get("realm") + ":" + digestMap.get("password");
+        String ha1 = MD5Utils.MD5(a1).toLowerCase();
+        String a2 = digestMap.get("method").toUpperCase() + ":" + digestMap.get("uri");
+        String ha2 = "";
         String qop = digestMap.get("qop");
+        String response = "";
         if (!StringUtils.isEmpty(qop)) {
             if ("auth".equalsIgnoreCase(qop)) {
-                a2 = MD5Utils.MD5(digestMap.get("method").toUpperCase() + ":" + digestMap.get("uri")).toLowerCase();
+                ha2 = MD5Utils.MD5(a2).toLowerCase();
+                response =  MD5Utils.MD5(ha1 + ":" + digestMap.get("nonce") + ":" + nc + ":" + cnonce + ":" + qop + ":" + ha2).toLowerCase();
             } else if ("auth-int".equalsIgnoreCase(qop)) {
-                a2 = MD5Utils.MD5(digestMap.get("method").toUpperCase() + ":" + digestMap.get("uri") + ":" + MD5Utils.MD5(digestMap.get("body"))).toLowerCase();
+                ha2 = MD5Utils.MD5(digestMap.get("method").toUpperCase() + ":" + digestMap.get("uri") + ":" + MD5Utils.MD5(digestMap.get("body"))).toLowerCase();
+                response = MD5Utils.MD5(ha1 + ":" + digestMap.get("nonce") + ":" + nc + ":" + cnonce + ":" + qop + ":" + ha2).toLowerCase();
+            } else if (isAuthAndAuthInt(qop)) {
+                // qop为auth,auth-int是，客户端可以任选一个值，这里默认选择auth
+                ha2 = MD5Utils.MD5(a2).toLowerCase();
+                response =  MD5Utils.MD5(ha1 + ":" + digestMap.get("nonce") + ":" + nc + ":" + cnonce + ":" + qop + ":" + ha2).toLowerCase();
+            } else {
+                // qop的值不属于auth 或者 auth-int
+                return "";
             }
         } else {
-
+            // qop未指定
+            ha2 = MD5Utils.MD5(a2).toLowerCase();
+            response = MD5Utils.MD5(ha1 + ":" + digestMap.get("nonce") + ":" + ha2);
         }
 
-        String response = MD5Utils.MD5(a1 + ":" + authResponseMap.get("nonce") + ":" + nc + ":" + cnonce + ":"
-                + authResponseMap.get("qop") + ":" + a2).toLowerCase();
         String authorization = "Digest username=\"" + digestMap.get("username") + "\", realm=\"" + digestMap.get("realm")
                 + "\", nonce=\"" + digestMap.get("nonce") + "\", uri=" + digestMap.get("uri") + ", qop=" + digestMap.get("qop")
                 + ", nc=" + nc + ", cnonce=\"" + cnonce + "\", response=\"" + response + "\"";
+        return authorization;
+    }
+
+    private static boolean isAuthAndAuthInt(String qop) {
+        if (StringUtils.isEmpty(qop)) {
+            return false;
+        }
+        Map<String, Boolean> authMap = new HashMap<>();
+        authMap.put("auth", false);
+        authMap.put("auth-int", false);
+
+        String[] auth = qop.split(",");
+        for (String authType : auth) {
+            if ("auth".equalsIgnoreCase(authType)) {
+                authMap.put("auth", true);
+            }
+            if ("auth-int".equalsIgnoreCase(authType)) {
+                authMap.put("auth-int", true);
+            }
+        }
+
+        if (authMap.get("auth") && authMap.get("auth-int")) {
+            return true;
+        }
+        return false;
     }
 }

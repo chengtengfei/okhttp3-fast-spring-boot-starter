@@ -61,7 +61,9 @@ public class AuthAuthenticator implements Authenticator {
                     }
 
                     String authorization = WWWAuthParse.assembleDigestAuthorization(digestAuthMap);
-                    return response.request().newBuilder().addHeader("Authorization", authorization).build();
+                    if (!StringUtils.isEmpty(authorization)) {
+                        return response.request().newBuilder().addHeader("Authorization", authorization).build();
+                    }
                 }
                 return null;
             } else {

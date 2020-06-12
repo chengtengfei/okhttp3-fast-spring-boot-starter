@@ -2,7 +2,7 @@ package com.github.chengtengfei.constant;
 
 final public class AuthConfig {
 
-    private static boolean status = true;
+    private static boolean status = false;
     private static String basicUsername;
     private static String basicPassword;
     private static String digestUsername;
@@ -12,39 +12,42 @@ final public class AuthConfig {
         return status;
     }
 
-    public static void setStatus(boolean status) {
-        AuthConfig.status = status;
-    }
 
     public static String getBasicUsername() {
         return basicUsername;
     }
 
-    public static void setBasicUsername(String basicUsername) {
-        AuthConfig.basicUsername = basicUsername;
-    }
 
     public static String getBasicPassword() {
         return basicPassword;
     }
 
-    public static void setBasicPassword(String basicPassword) {
-        AuthConfig.basicPassword = basicPassword;
-    }
 
     public static String getDigestUsername() {
         return digestUsername;
     }
 
-    public static void setDigestUsername(String digestUsername) {
-        AuthConfig.digestUsername = digestUsername;
-    }
 
     public static String getDigestPassword() {
         return digestPassword;
     }
 
-    public static void setDigestPassword(String digestPassword) {
+
+    public static void on() {
+        AuthConfig.status = true;
+    }
+
+    public static void off() {
+        AuthConfig.status = false;
+    }
+
+    public static void basicAuth(String basicUsername, String basicPassword) {
+        AuthConfig.basicUsername = basicUsername;
+        AuthConfig.basicPassword = basicPassword;
+    }
+
+    public static void digestAuth(String digestUsername, String digestPassword) {
+        AuthConfig.digestUsername = digestUsername;
         AuthConfig.digestPassword = digestPassword;
     }
 }

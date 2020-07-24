@@ -8,7 +8,7 @@ public class OkHttp3FastProperties {
     private int connectTimeout = 3;
     private int readTimeout = 3;
     private int writeTimeout = 3;
-    private boolean retryOnConnectionFailure = false;
+    private boolean retryOnConnectionFailure = true;
     private boolean https = false;
 
 

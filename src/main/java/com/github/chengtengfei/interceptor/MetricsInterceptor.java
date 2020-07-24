@@ -6,6 +6,8 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import com.github.chengtengfei.constant.MetricNameConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -13,6 +15,8 @@ import java.io.IOException;
  * okhttp3 请求指标度量拦截器
  */
 public class MetricsInterceptor implements Interceptor {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MetricsInterceptor.class);
 
     private MetricRegistry registry;
 

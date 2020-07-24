@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import com.github.chengtengfei.constant.MetricNameConstant;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
@@ -19,6 +20,8 @@ public class OkHttp3FastEndpoint {
     public OkHttp3FastEndpoint(MetricRegistry registry) {
         this.registry = registry;
     }
+
+    private final DecimalFormat decimalFormat =new DecimalFormat("#.00");
 
     @ReadOperation
     public Map<String, Object> getInfo() {
@@ -41,22 +44,34 @@ public class OkHttp3FastEndpoint {
 
     private Map<String, Object> convertTimerToMap(String name, Timer timer) {
         Map<String, Object> map = new HashMap<>();
+        // 总请求数
         map.put(name + ".count", timer.getCount());
-        map.put(name + ".oneMinuteRate", timer.getOneMinuteRate());
-        map.put(name + ".fiveMinuteRate", timer.getFiveMinuteRate());
-        map.put(name + ".fifteenMinuteRate", timer.getFifteenMinuteRate());
-        map.put(name + ".meanRate", timer.getMeanRate());
-        Snapshot snapshot = timer.getSnapshot();
-        map.put(name + ".snapshot.mean", snapshot.getMean());
-        map.put(name + ".snapshot.max", snapshot.getMax());
-        map.put(name + ".snapshot.min", snapshot.getMin());
-        map.put(name + ".snapshot.median", snapshot.getMedian());
-        map.put(name + ".snapshot.stdDev", snapshot.getStdDev());
-        map.put(name + ".snapshot.75thPercentile", snapshot.get75thPercentile());
-        map.put(name + ".snapshot.95thPercentile", snapshot.get95thPercentile());
-        map.put(name + ".snapshot.98thPercentile", snapshot.get98thPercentile());
-        map.put(name + ".snapshot.99thPercentile", snapshot.get99thPercentile());
-        map.put(name + ".snapshot.999thPercentile", snapshot.get999thPercentile());
+        // 最近1份钟平均请求数
+        map.put(name + ".oneMinuteRate", formatDoubleWith2Point(timer.getOneMinuteRate()));
+        // 最近5分钟平均请求数
+        map.put(name + ".fiveMinuteRate", formatDoubleWith2Point(timer.getFiveMinuteRate()));
+        // 最近15分钟平均请求数
+        map.put(name + ".fifteenMinuteRate", formatDoubleWith2Point(timer.getFifteenMinuteRate()));
+        // 总平均请求书
+        map.put(name + ".meanRate", formatDoubleWith2Point(timer.getMeanRate()));
+        // Snapshot snapshot = timer.getSnapshot();
+        // map.put(name + ".snapshot.mean", formatDoubleWith2Point(snapshot.getMean()));
+        // map.put(name + ".snapshot.max", snapshot.getMax());
+        // map.put(name + ".snapshot.min", snapshot.getMin());
+        // map.put(name + ".snapshot.median", formatDoubleWith2Point(snapshot.getMedian()));
+        // map.put(name + ".snapshot.stdDev", formatDoubleWith2Point(snapshot.getStdDev()));
+        // map.put(name + ".snapshot.75thPercentile", formatDoubleWith2Point(snapshot.get75thPercentile()));
+        // map.put(name + ".snapshot.95thPercentile", formatDoubleWith2Point(snapshot.get95thPercentile()));
+        // map.put(name + ".snapshot.98thPercentile", formatDoubleWith2Point(snapshot.get98thPercentile()));
+        // map.put(name + ".snapshot.99thPercentile", formatDoubleWith2Point(snapshot.get99thPercentile()));
+        // map.put(name + ".snapshot.999thPercentile", formatDoubleWith2Point(snapshot.get999thPercentile()));
         return map;
+    }
+
+    private String formatDoubleWith2Point(double value) {
+        if (value <= 0) {
+            return "0";
+        }
+        return decimalFormat.format(value);
     }
 }

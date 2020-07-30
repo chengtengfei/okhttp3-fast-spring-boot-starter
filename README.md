@@ -138,4 +138,4 @@ This project is licensed under the Apache 2.0 License.
 
 ### Acknowledgments
 - [OkHttp](https://square.github.io/okhttp/) 
-- [spring-boot-starter-okhttp3](spring-boot-starter-okhttp3)
+- [spring-boot-starter-okhttp3](https://github.com/linux-china/spring-boot-starter-okhttp3)

@@ -5,7 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.chengtengfei</groupId>
     <artifactId>okhttp3-fast-spring-boot-starter</artifactId>
-    <version>0.0.1_${maven.build.timestamp}-SNAPSHOT</version>
+    <!--<version>0.0.1_${maven.build.timestamp}-SNAPSHOT</version>-->
+    <version>0.0.2-SNAPSHOT</version>
 
 
     <name>${project.groupId}:${project.artifactId}</name>

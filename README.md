@@ -85,7 +85,7 @@ okhttp3.fast.retryOnConnectionFailure
 
 若是想增强`okHttp3Fast`的功能，也可以通过对`okhttp3-fast-spring-boot-starter`提供的`okHttpClient`添加更多的功能来完成。
 
-### 易用的认证方式
+#### 易用的认证方式
 
 `okhttp3.fast.retryOnConnectionFailure`基于`OkHttp3`的`Authenticator`机制提供了更方便易用的认证使用方式。若是请求的服务开启了`Baisc Auth`或者
 `Digest Auth`认证方式，在使用`OkHttp3Fast`访问接口时，只需要在访问前设置如下代码。
